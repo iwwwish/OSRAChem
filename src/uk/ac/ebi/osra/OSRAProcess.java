@@ -1,0 +1,144 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package uk.ac.ebi.osra;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JPanel;
+import org.openscience.cdk.exception.CDKException;
+import uk.ac.ebi.tools.PDFExtractor;
+import uk.ac.ebi.tools.TimeManager;
+
+/**
+ *
+ * @author vishalkpp
+ */
+public class OSRAProcess extends OSRA {
+
+    private static final Logger OSRAlogger = Logger.getLogger("com.lia.core");
+
+    PDFExtractor extractor = new PDFExtractor();
+
+    /**
+     * Extracts the structures from PDF document provided as input.
+     *
+     * @param pdfFilePath
+     * @return
+     * @throws java.io.IOException
+     */
+    public List<String> getStructuresFromPdf(String pdfFilePath) throws IOException {
+        double start = System.currentTimeMillis();
+        OSRAlogger.log(Level.INFO, "OSRA process started");
+
+        HashMap<String, String> allImages = extractor.getImages(pdfFilePath);
+        // filter images to obtain those with structures
+        List<String> validImages = getValidImages(allImages);
+        // process each image and get the resulting SMILES into a list
+        List<String> results = new ArrayList<>();
+        for (String smile : validImages) {
+            // now we have all the OSRA results in a list
+
+            if (!smile.isEmpty()) {
+                // check if the each result contains multiple smiles
+                if (consistsMultipleSmiles(smile)) {
+                    results.addAll(getIndividualSmiles(smile));
+                } else {
+                    results.add(smile);
+                }
+
+            }
+
+        }
+        // remove duplicates
+        HashSet set = new HashSet(results);
+        results.clear();
+        results.addAll(set);
+
+        OSRAlogger.log(Level.INFO, "OSRA process ended");
+
+        Double elapsed = new TimeManager().getTimeElapsed(start, "seconds");
+        System.out.println("OSRA process completed in " + elapsed + " seconds.");
+
+        return results;
+    }
+
+    public List<String> getStructuresFromImage(String imageFilePath) {
+
+        double start = System.currentTimeMillis();
+        OSRAlogger.log(Level.INFO, "OSRA process started");
+
+        String result = getResult(imageFilePath);
+
+        OSRAlogger.log(Level.INFO, "OSRA process ended");
+
+        Double elapsed = new TimeManager().getTimeElapsed(start, "seconds");
+        System.out.println("OSRA process completed in: " + elapsed + " seconds.");
+
+        return getIndividualSmiles(result);
+
+    }
+
+    /**
+     * Returns only those images that depict chemical structures.
+     *
+     * @param images
+     * @return
+     * @throws IOException
+     */
+    private List<String> getValidImages(HashMap<String, String> imagePaths) throws IOException {
+
+        List<String> valid = new ArrayList<>();
+        // parse each image with osra and add to the valid images map
+        for (Map.Entry<String, String> entry : imagePaths.entrySet()) {
+            String filePath = entry.getKey().concat(".").concat(entry.getValue());
+            String result = getResult(entry.getKey().concat(".").concat(entry.getValue()));
+            if (result != null) {
+                valid.add(result);
+            }
+            File file = new File(filePath);
+            file.delete();
+        }
+        // finally return valid images
+        // NOTE: few images might contain multiple structures
+        return valid;
+    }
+
+    private List<String> getIndividualSmiles(String result) {
+        String[] results;
+        List<String> smiles = new ArrayList<>();
+        if (consistsMultipleSmiles(result)) {
+            results = result.split(System.getProperty("line.separator"));
+            for (String smile : results) {
+                if (!smile.isEmpty()) {
+                    smiles.add(smile);
+                }
+            }
+        }
+        return smiles;
+    }
+
+    private boolean consistsMultipleSmiles(String result) {
+
+        String newline = System.getProperty("line.separator");
+        boolean hasNewline = result.contains(newline);
+
+        return hasNewline;
+    }
+
+    public static void main(String[] args) throws IOException, CDKException {
+        String imageFilePath = "/Users/vishalkpp/Downloads/test3.pdf";
+        List<String> smiles = new OSRAProcess().getStructuresFromPdf(imageFilePath);
+        System.out.println(smiles.toString());
+        new OSRA().displayImagesInPanel(smiles, new JPanel());
+    }
+}

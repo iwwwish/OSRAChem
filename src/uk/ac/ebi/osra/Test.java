@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package uk.ac.ebi.core;
+package uk.ac.ebi.osra;
 
 /**
  *
@@ -12,4 +11,8 @@ package uk.ac.ebi.core;
  */
 public class Test {
 
+    public static void main(String[] args) {
+       
+    }
+    
 }
