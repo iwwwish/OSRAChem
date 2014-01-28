@@ -33,7 +33,7 @@ The following are manadatory to use OSRAChem:
 ![alt tag](http://i41.tinypic.com/121v582.png)
 ******************************************************************************************************
 7. In case /usr/local denies to install, run command "sudo chown -R `username` /usr/local"
-In case of any errors, 
+
 ###### Download/Distribution:
 Feel free to download or distribute the source code and/or the executable JAR file.
 
