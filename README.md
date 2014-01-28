@@ -17,21 +17,23 @@ OSRAChem is built on top of the following tools and packages:
 ###### Requirements:
 The following are manadatory to use OSRAChem:
 
-1. Operating System- Mac OS X
-2. Java- version 6 or later
+1. Operating System- Mac OS X or Linux (Ubuntu 12.04 or later)
+2. Java Development Kit (JDK)- version 6 or later
 3. OSRA- must be installed using Homebrew
 
 ###### OSRA installation steps (on Terminal):
 
-1. Install XCode and Homebrew (if not installed previously)
-2. Install inchi (stable 1.04) package (command: brew install inchi)
-3. Install osra (stable 2.0.0) package (command: brew install osra)
-4. Check if any dependencies are missing or any links are missing and resolve them
-5. type osra and you should see something like below (if yes, installation is complete)
+1. Install Homebrew, if not installed previously (command: ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)")
+2. Add cheminformatics tap via brew (command: brew tap mcs07/cheminformatics)
+3. Make sure you have python installed (if not intall (brew install python))
+4. Install osra (stable 2.0.0) package (command: brew install osra)
+5. OSRA will be installed in the path "/usr/local/Cellar/osra"
+6. type osra and you should see something like below (if yes, installation is complete)
 ******************************************************************************************************
 ![alt tag](http://i41.tinypic.com/121v582.png)
 ******************************************************************************************************
-
+7. In case /usr/local denies to install, run command "sudo chown -R `username` /usr/local"
+In case of any errors, 
 ###### Download/Distribution:
 Feel free to download or distribute the source code and/or the executable JAR file.
 
