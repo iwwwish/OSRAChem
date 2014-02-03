@@ -9,13 +9,14 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.exception.InvalidSmilesException;
@@ -29,22 +30,24 @@ import uk.ac.ebi.utils.GenericCmdOutputObserver;
 import uk.ac.ebi.utils.GenericCmdv2;
 import uk.ac.ebi.tools.ImageRenderer;
 import uk.ac.ebi.tools.MultipleImagePanel;
+import uk.ac.ebi.tools.StructureListener;
 
 /**
  *
  * @author vishalkpp
  */
 public class OSRA {
-
-    public String getResult(String filepath) {
-
+    
+    public String getResult(String filepath, String osraPath) {
+        
         int p = filepath.lastIndexOf(".");
         String extension = filepath.substring(p + 1, filepath.length());
         List<String> tags = Arrays.asList("AVI", "BMP", "BMP2", "BMP3", "CALS", "CGM", "CIN", "DDS", "DJVU", "DNG", "DOT", "DPX", "EXR", "FIG", "FITS", "GIF", "HDR", "JNG", "JP2", "JPC", "JPG", "JPEG", "JXR", "MIFF", "MNG", "M2V", "MPEG", "MTV", "MVG", "PAM", "PBM", "PCX", "PFM", "PGM", "PNG", "PNG8", "PNG00", "PNG24", "PNG32", "PNG48", "PNG64", "PNM", "PPM", "PSB", "PSD", "PWP", "SCT", "SFW", "SVG", "TIF", "TIFF", "TTF", "VIFF", "WBMP", "WDP", "WEBP", "WMF", "WPG", "XBM", "XPM", "XWD");
         if (tags.contains(extension.toUpperCase())) {
             // simple command line execution of OSRA
             GenericCmdv2 runOSRA = new GenericCmdv2("OSRA Simple Run");
-            runOSRA.setCommand("/usr/local/Cellar/osra/2.0.0/bin/osra");
+            //runOSRA.setCommand("/usr/local/Cellar/osra/2.0.0/bin/osra");
+            runOSRA.setCommand(osraPath);
             runOSRA.addFlag("", filepath);
 
             // create log obsevers
@@ -60,23 +63,21 @@ public class OSRA {
 
             String rawOut = null;
             try {
-                rawOut = rawOutputObserver.waitForOutput(); // osra result
-                //rawOut = rawOut.replaceAll("\\s", "");
-                // System.out.println(rawOut);
+                rawOut = rawOutputObserver.waitForOutput(); // osra result 
             } catch (InterruptedException ex) {
                 Logger.getLogger(OSRA.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
             return rawOut;
         } else {
             System.err.println("Image format not accepted.");
         }
         return null;
-
+        
     }
-
+    
     public List<ResultMolecule> getResultMolecules(List<String> resultSmiles) throws InvalidSmilesException {
-
+        
         List<ResultMolecule> molecules = new ArrayList<>();
         SmilesParser parser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         for (String smile : resultSmiles) {
@@ -93,40 +94,42 @@ public class OSRA {
             } catch (InvalidSmilesException ex) {
                 System.err.println("Invalid smiles" + ex.getLocalizedMessage());
             }
-
+            
         }
-
+        
         return molecules;
-
+        
     }
-
-    public void displayImagesInPanel(List<String> resultSmiles, JPanel panel) throws CDKException {
-
+    
+    public void displayImagesInPanel(List<String> resultSmiles, JInternalFrame frame) throws CDKException {
+        
+        int w = frame.getWidth() - 30;
+        int h = frame.getHeight() - 30;
         // get all images to a list
         ImageRenderer renderer = new ImageRenderer();
-        renderer.setHeight(300);
-        renderer.setWidth(300);
-        panel.setSize(300, 300);
-        panel.setAlignmentX(0);
-        panel.setAlignmentY(0);
-        List<Image> images = Arrays.asList(renderer.getImageArray(resultSmiles, 300, 300));
+        renderer.setHeight(250);
+        renderer.setWidth(250);
+
+        //List<Image> images = Arrays.asList(renderer.getImageArray(resultSmiles, 250, 250));
+        HashMap<String, Image> imageMap = renderer.getImageMap(resultSmiles, 250, 250);
 
         // add the images to a JList within JScrollPane
         MultipleImagePanel imPanel = new MultipleImagePanel();
-        DefaultListModel imageModel = imPanel.createModel(images);
-        JList imageList = imPanel.createImageList(imageModel, 300, 300);
-        // add JList to System.out.println(h);
-        JScrollPane jScrollPane = new JScrollPane(imageList);
-        jScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
-
-        // create a JFrame
-        JFrame frame = new JFrame("Structures Extracted");
-        frame.setSize((3 * 300), 336);
-        frame.setLocationByPlatform(true);
-        frame.getContentPane().add(jScrollPane);
+        DefaultListModel imageModel = imPanel.createModelMap(imageMap);
+        JList imageList = imPanel.createImageList(imageModel, 250, 250);
+        imageList.setSize(w, h);
+        imageList.setToolTipText("Double click to save image (or) Single click to open in a new window.");
+        
+        StructureListener listener = new StructureListener("listener");
+        listener.setClickToDisplayProperties(imageList);
+        //listener.setClickToSaveImage(imageList);
+        
+        JScrollPane scrollPane = new JScrollPane(imageList);
+        scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
+        frame.setContentPane(scrollPane);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
     }
-
+    
 }

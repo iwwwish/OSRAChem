@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uk.ac.ebi.utils;
+package uk.ac.ebi.tools;
 
 import java.util.Arrays;
 import java.util.List;
@@ -67,5 +67,17 @@ public class ChemicalNameToStructure {
 
         return null;
     }
+    
+    public static String getStatus(String name){
+        OpsinResult result = nts.parseChemicalName(name, ntsconfig);
+        // check if the entity cannot be parsed by OPSIN
+        if (result.getStatus().equals(OpsinResult.OPSIN_RESULT_STATUS.FAILURE)) {
+            System.err.println("Error! OPSIN could not parse the named entity.");
+            return result.getStatus().toString();
+        }
+        
+        return null;
+    }
+
 
 }

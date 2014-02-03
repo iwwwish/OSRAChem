@@ -7,10 +7,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.exception.InvalidSmilesException;
 import org.openscience.cdk.interfaces.IAtomContainer;
@@ -36,7 +38,7 @@ public class ImageRenderer {
     private int height = 300;
 
     public Image getImageFromSmile(String smiles) throws InvalidSmilesException, CDKException {
-        
+
         BufferedImage image = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_RGB);
         SmilesParser smilesParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         IAtomContainer molecule = smilesParser.parseSmiles(smiles);
@@ -45,15 +47,16 @@ public class ImageRenderer {
         sdg.setMolecule(molecule);
         sdg.generateCoordinates();
         molecule = sdg.getMolecule();
-        
+
         List generators = Arrays.asList(new SmoothGenerator(),
                 new BasicSceneGenerator()
         );
 
         AtomContainerRenderer renderer = new AtomContainerRenderer(generators, new AWTFontManager());
         renderer.getRenderer2DModel().set(BasicSceneGenerator.FitToScreen.class, true);
-        //renderer.getRenderer2DModel().set(BasicBondGenerator.BondWidth.class, 2.0d);
-        // renderer.getRenderer2DModel().set(BasicAtomGenerator.ColorByType.class, true);
+        renderer.getRenderer2DModel().set(BasicSceneGenerator.UseAntiAliasing.class, true);
+        renderer.getRenderer2DModel().set(BasicSceneGenerator.ZoomFactor.class, 2.0);
+
         Graphics2D g2 = image.createGraphics();
 
         g2.fillRect(0, 0, width, height);
@@ -62,6 +65,14 @@ public class ImageRenderer {
         g2.dispose();
 
         return image;
+    }
+
+    public ImageIcon getImageIconFromSmile(int w, int h, String smile) throws CDKException {
+        setHeight(h);
+        setWidth(w);
+        Image im = getImageFromSmile(smile);
+        return new ImageIcon(im);
+
     }
 
     /**
@@ -91,6 +102,23 @@ public class ImageRenderer {
         return allImages;
     }
 
+    public HashMap<String, Image> getImageMap(List<String> smiles, int height, int width) {
+        this.height = height;
+        this.width = width;
+        HashMap<String, Image> allImages = new HashMap<>();
+
+        for (String s : smiles) {
+            try {
+                Image img = getImageFromSmile(s);
+                allImages.put(s, img);
+            } catch (CDKException ex) {
+                Logger.getLogger(ImageRenderer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return allImages;
+    }
+
     public int getHeight() {
         return height;
     }
@@ -108,7 +136,7 @@ public class ImageRenderer {
     }
 
     public static void main(String[] args) throws CDKException, IOException {
-        String s = "COC1=C(OC)C=C2C(=O)C(CC3CCN(CC4=CC=CC=C4)CC3)CC2=C1";
+        String s = "CCCc1nc2c(n1Cc1ccc(cc1)c1ccccc1C(=O)O)cc(cc2C)c1nc2c(n1C)cccc2";
         Image img = new ImageRenderer().getImageFromSmile(s);
         BufferedImage bi = ImageUtility.getBufferedImaged(img, 400, 400);
         ImageIO.write(bi, "PNG", new File("/Users/vishalkpp/Desktop/test.png"));

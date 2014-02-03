@@ -5,11 +5,12 @@
  */
 package uk.ac.ebi.tools;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import uk.ac.ebi.CDKUtil;
 import uk.ac.ebi.result.ResultMolecule;
-import uk.ac.ebi.utils.ChemicalNameToStructure;
 
 /**
  * A class for generation of ResultMolecule from name of the molecule. Name
@@ -19,13 +20,17 @@ import uk.ac.ebi.utils.ChemicalNameToStructure;
  */
 public class OpsinConverter {
 
-    static String input;
+    private static String input;
+    private static ResultMolecule molecule;
+    private static String Smile;
 
-    public OpsinConverter(String input) {
+    public OpsinConverter(String input) throws CDKException {
         OpsinConverter.input = input;
+        OpsinConverter.molecule = getResultMolecule();
     }
 
-    public ResultMolecule getResult() throws CDKException {
+    public ResultMolecule getResultMolecule() throws CDKException {
+
         ResultMolecule mol = new ResultMolecule();
         // set the SMILE
         mol.setSMILE(ChemicalNameToStructure.getStructure(input, "smile"));
@@ -47,13 +52,27 @@ public class OpsinConverter {
         mol.setBEMIS_MURCKO_SMILE(CDKUtil.Molecule.getBemisMurckoSMILES(container));
         // set the properties
         mol.setProperties(CDKUtil.Molecule.getProperties(container));
-        
+
         return mol;
     }
 
+    public String getSmile() throws CDKException {
+
+        return molecule.getSMILE();
+    }
+
+    public ImageIcon getImageIcon(int w, int h) throws CDKException {
+        ImageRenderer renderer = new ImageRenderer();
+        renderer.setHeight(h);
+        renderer.setWidth(w);
+        Image im = renderer.getImageFromSmile(getSmile());
+        return new ImageIcon(im);
+    }
+
     public static void main(String[] args) throws CDKException {
-        OpsinConverter converter = new OpsinConverter("phenol");
-        System.out.println(converter.getResult().getSMILE());
+        OpsinConverter converter = new OpsinConverter("aspirin");
+        
+        System.out.println(converter.getSmile());
     }
 
 }

@@ -10,6 +10,7 @@
  */
 package uk.ac.ebi.utils;
 
+import java.awt.BasicStroke;
 import uk.ac.ebi.tools.ImageRenderer;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -35,6 +36,25 @@ import javax.swing.JPanel;
 import org.openscience.cdk.exception.CDKException;
 
 public class ImageUtility {
+    
+    public static ImageIcon getBorderedIcon(ImageIcon icon) {
+        int borderWidth = 1/4;
+        int spaceAroundIcon = 0;
+        Color borderColor = Color.BLACK;
+        
+        BufferedImage bi = new BufferedImage(icon.getIconWidth() + (2 * borderWidth + 2 * spaceAroundIcon), icon.getIconHeight() + (2 * borderWidth + 2 * spaceAroundIcon), BufferedImage.TYPE_INT_ARGB);
+        
+        Graphics2D g = bi.createGraphics();
+        g.setColor(borderColor);
+        g.drawImage(icon.getImage(), borderWidth + spaceAroundIcon, borderWidth + spaceAroundIcon, null);
+        
+        BasicStroke stroke = new BasicStroke(1); //1 pixel wide (thickness of the border)
+        g.setStroke(stroke);
+        
+        g.drawRect(0, 0, bi.getWidth() - 1, bi.getHeight() - 1);
+        g.dispose();
+        return new ImageIcon(bi);
+    }
 
     /**
      * This method is used for loading an image.
@@ -43,7 +63,7 @@ public class ImageUtility {
      * @return
      */
     public static BufferedImage loadImageFromFile(String filepath) {
-
+        
         BufferedImage bufferedImg = null;
         try {
             bufferedImg = ImageIO.read(new File(filepath));
@@ -51,7 +71,7 @@ public class ImageUtility {
             Logger.getLogger(ImageUtility.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
-
+        
         return bufferedImg;
     }
 
@@ -65,12 +85,12 @@ public class ImageUtility {
      * @return
      */
     public static BufferedImage getBufferedImaged(Image img, int width, int height) {
-
+        
         Image image = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         BufferedImage bufferedImg = new BufferedImage(image.getWidth(null),
                 image.getHeight(null), BufferedImage.TYPE_INT_RGB);
         bufferedImg.getGraphics().drawImage(image, 0, 0, null);
-
+        
         return bufferedImg;
     }
 
@@ -90,9 +110,9 @@ public class ImageUtility {
         // draw the image
         g.drawImage(image, null, 0, 0);
     }
-
+    
     public static void loadIMageIconToPanel(JFrame frame, JPanel panel, ImageIcon icon) {
-
+        
         JLabel label = new JLabel();
         label.setIcon(icon);
         panel.add(label);
@@ -112,7 +132,7 @@ public class ImageUtility {
         File outF = new File(outFileName);
         ImageIO.write((RenderedImage) img, "PNG", outF);
     }
-
+    
     public static void saveImage(BufferedImage img, String outFileName, String format) throws IOException {
         File outF = new File(outFileName);
         ImageIO.write((RenderedImage) img, format, outF);
@@ -129,13 +149,13 @@ public class ImageUtility {
     public static BufferedImage resizeImage(BufferedImage img, int newHeight, int newWidth) {
         int height = img.getHeight();
         int width = img.getWidth();
-
+        
         BufferedImage newImg = new BufferedImage(newWidth, newHeight, img.getType());
         Graphics2D g = newImg.createGraphics();
         // g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g.drawImage(img, 0, 0, newWidth, newHeight, null);
         g.dispose();
-
+        
         return newImg;
     }
 
@@ -148,7 +168,7 @@ public class ImageUtility {
      * @return
      */
     public static byte[] getBytesArray(File imageFile) {
-
+        
         BufferedImage img;
         try {
             img = ImageIO.read(imageFile);
@@ -208,7 +228,7 @@ public class ImageUtility {
      * @return
      */
     public static Dimension getScaledDimension(Dimension imgSize, Dimension boundary) {
-
+        
         int original_width = imgSize.width;
         int original_height = imgSize.height;
         int bound_width = boundary.width;
@@ -231,35 +251,33 @@ public class ImageUtility {
             //scale width to maintain aspect ratio
             new_width = (new_height * original_width) / original_height;
         }
-
+        
         return new Dimension(new_width, new_height);
     }
-
- 
+    
     public static void setBackground(BufferedImage img, Color color) {
         Graphics2D g = img.createGraphics();
         g.setBackground(color);
         g.drawImage(img, 0, 0, g.getBackground(), null);
     }
-
+    
     public static Dimension getDimension(BufferedImage img) {
         int h = img.getHeight();
         int w = img.getWidth();
-
+        
         Dimension dim = new Dimension(w, h);
-
+        
         return dim;
     }
-
-
+    
     public static void getCompressedImage(BufferedImage image, String path) throws IOException {
-
+        
         Iterator iter = ImageIO.getImageWritersByFormatName("png");
         ImageWriter writer = (ImageWriter) iter.next();
         ImageWriteParam iwp = writer.getDefaultWriteParam();
         iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
         iwp.setCompressionQuality(1);
-
+        
         File file = new File(path);
         FileImageOutputStream output = new FileImageOutputStream(file);
         writer.setOutput(output);
@@ -267,37 +285,37 @@ public class ImageUtility {
         writer.write(null, newimage, iwp);
         writer.dispose();
     }
-
+    
     public static BufferedImage getAntiAliasedImage(BufferedImage image) {
-
+        
         BufferedImage bimage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-
+        
         Graphics2D g2 = bimage.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-
+        
         g2.drawImage(image, 0, 0, null);
         g2.dispose();
-
+        
         return bimage;
     }
-
+    
     public static Graphics2D getAntiAliasedGraphics(Graphics g) {
-
+        
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-
+        
         return g2;
-
+        
     }
-
+    
     public static void main(String[] args) {
-
+        
         String smile = "c1ccccc1";
         ImageRenderer renderer = new ImageRenderer();
         try {
@@ -306,7 +324,7 @@ public class ImageUtility {
         } catch (CDKException ex) {
             Logger.getLogger(ImageUtility.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
 }

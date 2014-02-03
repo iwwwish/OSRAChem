@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPanel;
 import org.openscience.cdk.exception.CDKException;
 import uk.ac.ebi.tools.PDFExtractor;
 import uk.ac.ebi.tools.TimeManager;
@@ -28,6 +27,11 @@ public class OSRAProcess extends OSRA {
     private static final Logger OSRAlogger = Logger.getLogger("com.lia.core");
 
     PDFExtractor extractor = new PDFExtractor();
+    String osraPath;
+    
+    public OSRAProcess(String osraPath){
+        this.osraPath = osraPath;
+    }
 
     /**
      * Extracts the structures from PDF document provided as input.
@@ -77,7 +81,7 @@ public class OSRAProcess extends OSRA {
         double start = System.currentTimeMillis();
         OSRAlogger.log(Level.INFO, "OSRA process started");
 
-        String result = getResult(imageFilePath);
+        String result = getResult(imageFilePath,osraPath);
 
         OSRAlogger.log(Level.INFO, "OSRA process ended");
 
@@ -101,7 +105,7 @@ public class OSRAProcess extends OSRA {
         // parse each image with osra and add to the valid images map
         for (Map.Entry<String, String> entry : imagePaths.entrySet()) {
             String filePath = entry.getKey().concat(".").concat(entry.getValue());
-            String result = getResult(entry.getKey().concat(".").concat(entry.getValue()));
+            String result = getResult(entry.getKey().concat(".").concat(entry.getValue()),osraPath);
             if (result != null) {
                 valid.add(result);
             }
@@ -137,8 +141,9 @@ public class OSRAProcess extends OSRA {
 
     public static void main(String[] args) throws IOException, CDKException {
         String imageFilePath = "/Users/vishalkpp/Downloads/test3.pdf";
-        List<String> smiles = new OSRAProcess().getStructuresFromPdf(imageFilePath);
+        String osraPath = "/usr/local/Cellar/osra/2.0.0/bin/osra";
+        List<String> smiles = new OSRAProcess(osraPath).getStructuresFromPdf(imageFilePath);
         System.out.println(smiles.toString());
-        new OSRA().displayImagesInPanel(smiles, new JPanel());
+        //new OSRA().displayImagesInPanel(smiles, new JPanel());
     }
 }

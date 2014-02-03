@@ -12,11 +12,7 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author vishalkpp
  */
-public class ChemFileFilter extends FileFilter {
-
-    public final static String mol = ".mol";
-    public final static String cml = ".cml";
-    public final static String sdf = ".sdf";
+public class PDFFileFilter extends FileFilter {
 
     @Override
     public boolean accept(File f) {
@@ -26,16 +22,7 @@ public class ChemFileFilter extends FileFilter {
 
         String extension = Utility.getExtension(f);
         if (extension != null) {
-            switch (extension) {
-                case ChemFileFilter.mol:
-                    return true;
-                case ChemFileFilter.sdf:
-                    return true;
-                case ChemFileFilter.cml:
-                    return true;
-                default:
-                    return false;
-            }
+            return extension.equals(".pdf");
         }
 
         return false;
@@ -43,8 +30,7 @@ public class ChemFileFilter extends FileFilter {
 
     @Override
     public String getDescription() {
-        return ".mol,.sdf,.cml";
-
+        return ".pdf";
     }
 
 }

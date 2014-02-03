@@ -10,7 +10,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -51,8 +53,7 @@ public class MultipleImagePanel extends JPanel {
         imageList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         imageList.setFixedCellWidth(w);
         imageList.setFixedCellHeight(h);
-
-        imageList.setDragEnabled(true);
+        imageList.setDragEnabled(false);
         imageList.setDropMode(DropMode.INSERT);
 
         return imageList;
@@ -62,9 +63,21 @@ public class MultipleImagePanel extends JPanel {
         DefaultListModel model = new DefaultListModel();
         for (Image i : images) {
             ImageIcon icon = new ImageIcon(i);
+
             model.addElement(icon);
         }
 
+        return model;
+    }
+
+    public DefaultListModel createModelMap(HashMap<String, Image> imageMap) {
+        DefaultListModel model = new DefaultListModel();
+
+        for (Map.Entry<String, Image> entry : imageMap.entrySet()) {
+            ImageIcon icon = new ImageIcon(entry.getValue());
+            icon.setDescription(entry.getKey());
+            model.addElement(icon);
+        }
         return model;
     }
 
@@ -79,17 +92,16 @@ public class MultipleImagePanel extends JPanel {
             setLayout(new BorderLayout());
             Border emptyBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
             imageLabel.setBorder(emptyBorder);
-            //descriptionLabel.setBorder(emptyBorder);
+
             add(imageLabel, BorderLayout.CENTER);
-            // add(descriptionLabel, BorderLayout.SOUTH);
+
         }
 
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             defaultListCellRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            setBorder(new LineBorder(Color.BLACK, 1, true));
+            setBorder(new LineBorder(Color.DARK_GRAY, 1, true));
             setBackground(defaultListCellRenderer.getBackground());
             imageLabel.setIcon((Icon) value);
-            //descriptionLabel.setText("Description");
             return this;
         }
     }

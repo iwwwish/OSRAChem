@@ -231,6 +231,14 @@ public class Utility {
         return fname.substring(fname.indexOf(fNoext) + fNoext.length());
     }
 
+    public static String fromListToString(List<String> input) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : input) {
+            sb.append(s);
+        }
+        return sb.toString();
+    }
+
     /**
      * Returns individual words in 'f' as a Array of Strings
      *
@@ -624,7 +632,7 @@ public class Utility {
 
         public static File getFile(JComponent parent) {
             JFileChooser jfc = new JFileChooser();
-            jfc.setDialogTitle("Utility: FileChooser");
+            jfc.setDialogTitle("OSRAChem: FileChooser");
             jfc.showOpenDialog(parent);
 
             return jfc.getSelectedFile();
@@ -635,7 +643,7 @@ public class Utility {
             File f = null;
             try {
                 JFileChooser jfc = new JFileChooser();
-                jfc.setDialogTitle("Utility: FileSaver");
+                jfc.setDialogTitle("OSRAChem: FileSaver");
                 jfc.showSaveDialog(parent);
                 f = jfc.getSelectedFile();
                 f.createNewFile();
@@ -650,14 +658,14 @@ public class Utility {
         public static File getFile(JComponent parent, FileNameExtensionFilter filter) {
             JFileChooser jfc = new JFileChooser();
             jfc.addChoosableFileFilter(filter);
-            jfc.setDialogTitle("Utility: FileChooser");
+            jfc.setDialogTitle("OSRAChem: FileChooser");
             jfc.showOpenDialog(parent);
             return jfc.getSelectedFile();
 
         }
 
         public static void showInfoMessage(JComponent parent, String message) {
-            JOptionPane.showMessageDialog(parent, message, "Utility: Info", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(parent, message, "OSRAChem: Info", JOptionPane.INFORMATION_MESSAGE);
 
         }
     }

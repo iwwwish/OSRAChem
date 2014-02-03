@@ -6,6 +6,7 @@
 package uk.ac.ebi.utils;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.filechooser.FileFilter;
 
@@ -15,7 +16,8 @@ import javax.swing.filechooser.FileFilter;
  */
 public class ImageFileFilter extends FileFilter {
 
-    public static List<String> imageTags = Utility.getNamesInFile(new File("/Users/vishalkpp/NetBeansProjects/OSRAChem/Data/image_formats.txt"));
+    //public static List<String> imageTags = Utility.getNamesInFile(new File("/Users/vishalkpp/NetBeansProjects/OSRAChem/Data/image_formats.txt"));
+    public static List<String> imageTags = Arrays.asList("AVI", "BMP", "BMP2", "BMP3", "CALS", "CGM", "CIN", "DDS", "DJVU", "DNG", "DOT", "DPX", "EXR", "FIG", "FITS", "GIF", "HDR", "JNG", "JP2", "JPC", "JPG", "JPEG", "JXR", "MIFF", "MNG", "M2V", "MPEG", "MTV", "MVG", "PAM", "PBM", "PCX", "PFM", "PGM", "PNG", "PNG8", "PNG00", "PNG24", "PNG32", "PNG48", "PNG64", "PNM", "PPM", "PSB", "PSD", "PWP", "SCT", "SFW", "SVG", "TIF", "TIFF", "TTF", "VIFF", "WBMP", "WDP", "WEBP", "WMF", "WPG", "XBM", "XPM", "XWD");
 
     @Override
     public boolean accept(File f) {

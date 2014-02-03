@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package uk.ac.ebi.app;
 
 /**
@@ -11,5 +10,5 @@ package uk.ac.ebi.app;
  * @author vishalkpp
  */
 public class Test {
-
+    
 }
