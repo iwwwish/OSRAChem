@@ -30,7 +30,7 @@ public class SplashingScreen extends JWindow {
     public SplashingScreen(Image img) {
         try {
             this.img = img;
-            setSize(300, 189);
+            setSize(484, 176);
             setLocationRelativeTo(null);
             show();
             Thread.sleep(4000);

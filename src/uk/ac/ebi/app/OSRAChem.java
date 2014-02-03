@@ -612,7 +612,7 @@ public class OSRAChem extends javax.swing.JFrame {
         //</editor-fold>
         Image img;
         try {
-            img = Toolkit.getDefaultToolkit().getImage(new URL("http://s30.postimg.org/vsi6uzigx/6jhq4.gif"));
+            img = Toolkit.getDefaultToolkit().getImage(new URL("http://i60.tinypic.com/4smc04.jpg"));
             SplashingScreen sp = new SplashingScreen(img);
         } catch (MalformedURLException ex) {
             Logger.getLogger(OSRAChem.class.getName()).log(Level.SEVERE, null, ex);
