@@ -1,12 +1,18 @@
 /*
- * This is an image utility written by Vishal Siramshetty. It includes methods 
- * that users can use to manipulate images to their own will. The type of images
- * supported herein are PNG, BMP, JPG, GIF.
- * 
- * This utiltiy will be constantly updated and for any clarifications, contact 
- * the author on srmshtty@gmail.com personally.
+ * Copyright (C) 2014. EMBL, European Bioinformatics Institute
  *
- * @author Vishal (s0visira@uni-bonn.de)
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package uk.ac.ebi.utils;
 
@@ -34,6 +40,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.openscience.cdk.exception.CDKException;
+
+/**
+ * 
+ * @author Vishal Siramshetty <vishal[at]ebi.ac.uk>
+ */
 
 public class ImageUtility {
     

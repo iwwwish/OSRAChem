@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Vishal Siramshetty <vishal[at]ebi.ac.uk>
+ * Copyright (C) 2014. EMBL, European Bioinformatics Institute
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,9 +27,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.io.MDLV2000Writer;
-import uk.ac.ebi.CDKUtil;
 import uk.ac.ebi.app.OSRAChem;
+import uk.ac.ebi.utils.CDKUtil;
 import uk.ac.ebi.utils.Utility;
 
 /**

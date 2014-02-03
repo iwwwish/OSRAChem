@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Vishal Siramshetty <vishal[at]ebi.ac.uk>
+ * Copyright (C) 2014. EMBL, European Bioinformatics Institute
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
 package uk.ac.ebi.tools;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.TimeZone;
 
 /**
