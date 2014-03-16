@@ -1,7 +1,9 @@
 OSRAChem
 ========
 
-OSRAChem is an open source desktop application for automated extraction and visualization of chemical structures from scientific articles (in PDF format). Structures can also be extracted from images depicting structures. All the image file [formats](http://www.graphicsmagick.org/formats.html) supported by [GraphicsMagick](http://www.graphicsmagick.org/) are valid input formats.
+OSRAChem is an open source desktop application for automated extraction and visualization of chemical structures from scientific articles (in PDF format). Structures can also be extracted from images depicting structures. All the image file [formats](http://www.graphicsmagick.org/formats.html) supported by [GraphicsMagick](http://www.graphicsmagick.org/) are valid input formats. Have a look at the screenshot to know how the interface looks like.
+
+![alt tag](http://oi57.tinypic.com/308fsjo.jpg)
 
 The work is a part of an internship project under the supervison of [Dr. Christoph Steinbeck](http://www.ebi.ac.uk/about/people/christoph-steinbeck), Head of Chemoinformatics and Metabolism at [European Bioinformatics Institute](http://www.ebi.ac.uk).
 
