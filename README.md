@@ -1,11 +1,11 @@
 OSRAChem
 ========
 
-OSRAChem is an open source desktop application for automated extraction and visualization of chemical structures from scientific articles (in PDF format). Structures can also be extracted from images depicting structures. All the image file [formats](http://www.graphicsmagick.org/formats.html) supported by [GraphicsMagick](http://www.graphicsmagick.org/) are valid input formats. Have a look at the screenshot to know how the interface looks like.
+OSRAChem is an open source desktop application aimed at facilitating a semi-automated work-flow for extraction of chemical structures presented within bitmap images in full-text scientific articles (PDF). Extracted SMILES are reconstructed for visualization and users can interactively operate the work-flow with an ability to pre-process the images, edit and curate the extracted structures.Structures can also be extracted from images depicting structures. All the image file [formats](http://www.graphicsmagick.org/formats.html) supported by [GraphicsMagick](http://www.graphicsmagick.org/) are valid input formats.
 
 ![alt tag](http://oi57.tinypic.com/308fsjo.jpg)
 
-The work is a part of an internship project under the supervison of [Dr. Christoph Steinbeck](http://www.ebi.ac.uk/about/people/christoph-steinbeck), Head of Chemoinformatics and Metabolism at [European Bioinformatics Institute](http://www.ebi.ac.uk).
+The work was a part of an internship project under the supervison of [Dr. Christoph Steinbeck](http://www.ebi.ac.uk/about/people/christoph-steinbeck), Head of Chemoinformatics and Metabolism at [European Bioinformatics Institute](http://www.ebi.ac.uk). Image preporcessing pipelines are currently being integrated with he workflow.
 
 ###### Dependencies:
 OSRAChem is built on top of the following tools and packages:
@@ -17,13 +17,13 @@ OSRAChem is built on top of the following tools and packages:
 5. [JPedal](http://sourceforge.net/projects/jpedal/)- An open source library with fully-featured PDF viewer
 
 ###### Requirements:
-The following are manadatory to use OSRAChem:
+The following are manadatory:
 
 1. Operating System- Mac OS X or Linux (Ubuntu 12.04 or later)
-2. Java Development Kit (JDK)- version 6 or later
-3. OSRA- must be installed using Homebrew
+2. Java Development Kit (JDK)- v1.6 or later
+3. OSRA- must be compiled using [source code](http://sourceforge.net/projects/osra/)
 
-###### OSRA installation steps (on Terminal):
+###### OSRA compilation steps (Mac OS X) (on Terminal):
 
 1. Install Homebrew, if not installed previously (command: ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)")
 2. Add cheminformatics tap via brew (command: brew tap mcs07/cheminformatics)
@@ -36,5 +36,9 @@ The following are manadatory to use OSRAChem:
 ******************************************************************************************************
 7. In case /usr/local denies to install, run command "sudo chown -R `username` /usr/local"
 
+###### OSRA compilation (Ubuntu/Linux) (on Terminal):
+
+Find the instructions [here](http://sourceforge.net/apps/mediawiki/osra/index.php?title=Compilation_on_Linux).
+
 ###### Download/Distribution:
-Feel free to download or distribute the source code. For a .jar or .deb or .dmg file, please contact me (srmshtty@gmail.com).
+Feel free to download or distribute the source code. For a .jar or .deb or .dmg file, or to know more about OSRAChem, please contact me (srmshtty@gmail.com).
