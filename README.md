@@ -35,6 +35,4 @@ The following are manadatory to use OSRAChem:
 7. In case /usr/local denies to install, run command "sudo chown -R `username` /usr/local"
 
 ###### Download/Distribution:
-Feel free to download or distribute the source code and/or the executable JAR file.
-
-© 2014 [Vishal Siramshetty](http://vishalkpp.blogspot.co.uk) Some Rights Reserved.
+Feel free to download or distribute the source code. For a .jar or .deb or .dmg file, please contact me (srmshtty@gmail.com).
