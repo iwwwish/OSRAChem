@@ -27,7 +27,7 @@ The following are manadatory:
 
 1. Install Homebrew, if not installed previously (command: ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)")
 2. Add cheminformatics tap via brew (command: brew tap mcs07/cheminformatics)
-3. Make sure you have python installed (if not intall (brew install python))
+3. Make sure you have python installed (if not install (brew install python))
 4. Install osra (stable 2.0.0) package (command: brew install osra)
 5. OSRA will be installed in the path "/usr/local/Cellar/osra"
 6. type osra and you should see something like below (if yes, installation is complete)
