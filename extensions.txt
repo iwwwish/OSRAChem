@@ -1,0 +1,23 @@
+1. Extensions:
+
+	a. Integrate a compound library such as PubChem/ChemSpider/ChEBI/ChEMBL at the backend to identify the compounds identical/similar to the structures identified by OSRAChem from a document. This can be done by indexing the library of structures with corresponding identifiers and InChIKeys to facilitate rapid screening.
+	b. add command line utilities
+	c. add batch processing workflow (Fork/Join)
+
+2. Improvements:
+
+	a. Integrate a molecule editing environment that helps users to dynamically edit the structure and make changes to the recognized structures.
+	b. Enable a 3D structure view of the molecule
+	c. Upgrade the image rendering tool to a commercial version (e.g. Marvin Sketch)
+
+3. Workflow:
+
+	a. add R group extraction algorithm
+	b. add confidence estimates to output structures
+	c. add visual debug mode (in a separate panel)
+
+4. Changes:
+
+	a. leave out CDK dependency and use openbabel for format interconversion and I/O
+	b. splash screen
+	c. look and feel
