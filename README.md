@@ -24,12 +24,12 @@ The work was part of an internship project under the supervison of [Dr. Christop
 
 1. Install Homebrew (if not previously installed): [see instructions](https://brew.sh/)
 2. Tap the [cheminformatics](https://github.com/mcs07/homebrew-cheminformatics) repository (thanks to Matt Swain): `brew tap mcs07/cheminformatics`
-3. Install osra: `brew install osra`
-4. type osra and you should see something like below (if yes, installation is complete)
+3. Install OSRA: `brew install osra`
+4. type `osra` and you should see something like below (if yes, installation is complete)
 ******************************************************************************************************
 ![alt tag](http://i41.tinypic.com/121v582.png)
 ******************************************************************************************************
-7. In case /usr/local denies to install, run command `"sudo chown -R `username` /usr/local"`
+7. In case `/usr/local` denies to install, run command `"sudo chown -R `username` /usr/local"`
 
 ###### OSRA compilation (Linux):
 
