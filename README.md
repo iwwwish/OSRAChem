@@ -30,6 +30,6 @@ The work was part of an internship project under the supervison of [Dr. Christop
 ![alt tag](http://i41.tinypic.com/121v582.png)
 ******************************************************************************************************
 
-###### OSRA compilation (Linux):
+###### OSRA installation steps (Linux):
 
-Find detailed instructions [here](https://cactus.nci.nih.gov/osra/).
+OSRA must be compiled from source in Linux. Find detailed instructions [here](https://cactus.nci.nih.gov/osra/).
