@@ -29,7 +29,6 @@ The work was part of an internship project under the supervison of [Dr. Christop
 ******************************************************************************************************
 ![alt tag](http://i41.tinypic.com/121v582.png)
 ******************************************************************************************************
-7. In case `/usr/local` denies to install, run command `"sudo chown -R `username` /usr/local"`
 
 ###### OSRA compilation (Linux):
 
