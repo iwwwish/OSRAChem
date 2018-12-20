@@ -7,7 +7,7 @@ The work was part of an internship project under the supervison of [Dr. Christop
 
 ![alt tag](http://oi57.tinypic.com/308fsjo.jpg)
 
-###### Dependencies:
+###### Packages/Dependencies:
 
 1. [OSRA](https://cactus.nci.nih.gov/osra/)- Optical Structure Recognition Application
 2. [CDK](http://sourceforge.net/projects/cdk/)- Chemistry Development Kit
@@ -16,14 +16,13 @@ The work was part of an internship project under the supervison of [Dr. Christop
 5. [JPedal](http://sourceforge.net/projects/jpedal/)- An open source library with fully-featured PDF viewer
 
 ###### Requirements:
-The following are manadatory:
 
 1. Operating System: Mac OS X or Linux (Ubuntu 12.04 or later)
 2. Java 6 or later
 
 ###### OSRA installation steps (Mac OS):
 
-1. Install Homebrew (if not previously installed): `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+1. Install Homebrew (if not previously installed): [see instructions](https://brew.sh/)
 2. Tap the [cheminformatics](https://github.com/mcs07/homebrew-cheminformatics) repository (thanks to Matt Swain): `brew tap mcs07/cheminformatics`
 3. Install osra: `brew install osra`
 4. type osra and you should see something like below (if yes, installation is complete)
@@ -34,4 +33,4 @@ The following are manadatory:
 
 ###### OSRA compilation (Linux):
 
-Find the instructions [here](https://cactus.nci.nih.gov/osra/).
+Find detailed instructions [here](https://cactus.nci.nih.gov/osra/).
