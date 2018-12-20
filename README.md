@@ -24,15 +24,15 @@ The following are manadatory:
 
 ###### OSRA installation steps (Mac OS) (on Terminal):
 
-1. Install Homebrew, if not installed previously (command: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)")
-2. Tap the [cheminformatics](https://github.com/mcs07/homebrew-cheminformatics) repository (thanks to Matt Swain) (command: brew tap mcs07/cheminformatics)
-3. Make sure you have Python installed (if not install (command: brew install python))
-4. Install osra (command: brew install osra)
+1. Install Homebrew, if not installed previously (command: `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`)
+2. Tap the [cheminformatics](https://github.com/mcs07/homebrew-cheminformatics) repository (thanks to Matt Swain) (command: `brew tap mcs07/cheminformatics`)
+3. Make sure you have Python installed (if not install (command: `brew install python`))
+4. Install osra (command: `brew install osra`)
 5. type osra and you should see something like below (if yes, installation is complete)
 ******************************************************************************************************
 ![alt tag](http://i41.tinypic.com/121v582.png)
 ******************************************************************************************************
-7. In case /usr/local denies to install, run command "sudo chown -R `username` /usr/local"
+7. In case /usr/local denies to install, run command `"sudo chown -R `username` /usr/local"`
 
 ###### OSRA compilation (Linux) (on Terminal):
 
