@@ -1,7 +1,7 @@
 OSRAChem
 ========
 
-OSRAChem is a desktop application that facilitates a semi-automated work-flow for extracting chemical structures (from images) in full-text scientific articles. It is built on top of the open-source OSRA utility (many thanks to [Igor Filippov](https://cactus.nci.nih.gov/osra/)). The extracted structures are displayed as 2D depictions. The application also takes image and text inputs. All image file [formats](http://www.graphicsmagick.org/formats.html) supported by [GraphicsMagick](http://www.graphicsmagick.org/) are valid.
+OSRAChem is a desktop application that facilitates a semi-automated work-flow for extracting chemical structures (from images) in full-text scientific articles. It relies on the open-source OSRA utility (many thanks to [Igor Filippov](https://cactus.nci.nih.gov/osra/)). The extracted structures are displayed as 2D depictions. The application also takes image and text inputs. All image file [formats](http://www.graphicsmagick.org/formats.html) supported by [GraphicsMagick](http://www.graphicsmagick.org/) are valid.
 
 ![alt tag](http://oi57.tinypic.com/308fsjo.jpg)
 
